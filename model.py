@@ -84,7 +84,7 @@ class MultiTaskViT(nn.Module):
         x = torch.cat([x, skip1, metadata_features1], dim=1)  # Add another skip connection and metadata
         x = self.conv2(x)
 
-        segmentation_output = self.final_conv(x)  # Final segmentation map
+        segmentation_output = F.interpolate(self.final_conv(x), size=(x.shape[2] * 4, x.shape[3] * 4), mode='bilinear', align_corners=False)  # Final segmentation map
 
         return classification_output, segmentation_output
 
@@ -95,10 +95,10 @@ model = MultiTaskViT(
 )
 
 # Input Example
-image_input = torch.randn(4, 3, 224, 224)  # Batch size 4, RGB images of size 224x224
-metadata_input = torch.randn(4, 4)  # Batch size 4, metadata with 5 features (e.g., age, gender, etc.)
+# image_input = torch.randn(4, 3, 224, 224)  # Batch size 4, RGB images of size 224x224
+# metadata_input = torch.randn(4, 4)  # Batch size 4, metadata with 5 features (e.g., age, gender, etc.)
 
-classification_output, segmentation_output = model(image_input, metadata_input)
+# classification_output, segmentation_output = model(image_input, metadata_input)
 
-print("Classification output shape:", classification_output.shape)  # [4, num_classes_cls]
-print("Segmentation output shape:", segmentation_output.shape)  # [4, num_classes_seg, 224, 224]
+# print("Classification output shape:", classification_output.shape)  # [4, num_classes_cls]
+# print("Segmentation output shape:", segmentation_output.shape)  # [4, num_classes_seg, 224, 224]

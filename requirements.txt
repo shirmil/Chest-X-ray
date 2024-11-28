@@ -2,3 +2,5 @@ kagglehub
 pandas
 matplotlib
 torch
+scikit-learn
+torchvision

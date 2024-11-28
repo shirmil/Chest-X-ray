@@ -3,7 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 class MultiTaskViT(nn.Module):
-    def __init__(self, img_size=224, patch_size=16, in_channels=3, embed_dim=768, num_heads=8, depth=6, num_classes_seg=2, num_classes_cls=2, metadata_dim=5):
+    def __init__(self, img_size=224, patch_size=16, in_channels=1, embed_dim=768, num_heads=8, depth=6, num_classes_seg=2, num_classes_cls=2, metadata_dim=5):
         super(MultiTaskViT, self).__init__()
         self.img_size = img_size
         self.patch_size = patch_size
@@ -18,7 +18,7 @@ class MultiTaskViT(nn.Module):
 
         # Transformer Encoder
         self.transformer = nn.TransformerEncoder(
-            nn.TransformerEncoderLayer(d_model=embed_dim, nhead=num_heads, dim_feedforward=embed_dim * 4),
+            nn.TransformerEncoderLayer(d_model=embed_dim, nhead=num_heads, dim_feedforward=embed_dim * 4, batch_first=True),
             num_layers=depth
         )
 
@@ -89,10 +89,10 @@ class MultiTaskViT(nn.Module):
         return classification_output, segmentation_output
 
 # Model Initialization
-model = MultiTaskViT(
-    img_size=224, patch_size=16, in_channels=3, embed_dim=768, num_heads=8, depth=6,
-    num_classes_seg=2, num_classes_cls=2, metadata_dim=4
-)
+# model = MultiTaskViT(
+#     img_size=224, patch_size=16, in_channels=3, embed_dim=768, num_heads=8, depth=6,
+#     num_classes_seg=2, num_classes_cls=2, metadata_dim=4
+# )
 
 # Input Example
 # image_input = torch.randn(4, 3, 224, 224)  # Batch size 4, RGB images of size 224x224

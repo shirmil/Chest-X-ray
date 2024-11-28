@@ -18,5 +18,5 @@ IMG_SIZE = 224
 PATCH_SIZE = 16
 
 # Training Parameters
-BATCH_SIZE = 32
+BATCH_SIZE = 64
 NUM_EPOCHS = 10

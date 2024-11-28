@@ -4,3 +4,4 @@ matplotlib
 torch
 scikit-learn
 torchvision
+torch torchvision torchaudio

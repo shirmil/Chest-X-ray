@@ -3,7 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 class MultiTaskViT(nn.Module):
-    def __init__(self, img_size=224, patch_size=16, in_channels=1, embed_dim=768, num_heads=8, depth=6, num_classes_seg=2, num_classes_cls=2, metadata_dim=5):
+    def __init__(self, img_size=224, patch_size=16, in_channels=1, embed_dim=768, num_heads=8, depth=6, num_classes_seg=2, num_classes_cls=2, metadata_dim=4):
         super(MultiTaskViT, self).__init__()
         self.img_size = img_size
         self.patch_size = patch_size
